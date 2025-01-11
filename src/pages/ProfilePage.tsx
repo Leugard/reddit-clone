@@ -1,3 +1,5 @@
+import "../styles/SubmitPage.css";
+
 const ProfilePage = () => {
   return <div>ProfilePage</div>;
 };
