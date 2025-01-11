@@ -1,5 +1,5 @@
 import { v, ConvexError } from "convex/values";
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { getCurrentUserOrThrow } from "./users";
 
 export const create = mutation({
@@ -18,5 +18,18 @@ export const create = mutation({
       description: args.description,
       authorId: user._id,
     });
+  },
+});
+
+export const get = query({
+  args: { name: v.string() },
+  handler: async (ctx, args) => {
+    const subreddit = await ctx.db
+      .query("subreddit")
+      .filter((q) => q.eq(q.field("name"), args.name))
+      .unique();
+    if (!subreddit) return null;
+
+    return subreddit;
   },
 });

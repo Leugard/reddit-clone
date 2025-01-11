@@ -1,7 +1,7 @@
 import "../styles/SubmitPage.css";
 
 const ProfilePage = () => {
-  return <div>ProfilePage</div>;
+  return <div className="content-container">ProfilePage</div>;
 };
 
 export default ProfilePage;
