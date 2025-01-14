@@ -1,6 +1,7 @@
 import { v, ConvexError } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { getCurrentUserOrThrow } from "./users";
+import { getEnrichedPosts } from "./post";
 
 export const create = mutation({
   args: {
@@ -30,6 +31,13 @@ export const get = query({
       .unique();
     if (!subreddit) return null;
 
-    return subreddit;
+    const posts = await ctx.db
+      .query("post")
+      .withIndex("bySubreddit", (q) => q.eq("subreddit", subreddit._id))
+      .collect();
+
+    const enrichedPosts = await getEnrichedPosts(ctx, posts);
+
+    return { subreddit, posts: enrichedPosts };
   },
 });
