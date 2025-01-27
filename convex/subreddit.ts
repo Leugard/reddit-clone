@@ -38,6 +38,6 @@ export const get = query({
 
     const enrichedPosts = await getEnrichedPosts(ctx, posts);
 
-    return { subreddit, posts: enrichedPosts };
+    return { ...subreddit, posts: enrichedPosts };
   },
 });

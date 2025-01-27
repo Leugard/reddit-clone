@@ -9,6 +9,7 @@ const ProfilePage = () => {
   const posts = useQuery(api.post.userPosts, {
     authorUsername: username || "",
   });
+  const stats = useQuery(api.users.getPublicUser, {username:username || ""})
 
   if (posts === undefined)
     return (
@@ -24,7 +25,7 @@ const ProfilePage = () => {
     <div className="content-container">
       <div className="profile-header">
         <h1>u/{username}</h1>
-        <p style={{ color: "#7c7c7c" }}>Posts: 0</p>
+        <p style={{ color: "#7c7c7c" }}>Posts: {stats?.posts ?? 0}</p>
       </div>
       <div className="posts-container">
         {posts.length === 0 ? (
