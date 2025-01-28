@@ -5,7 +5,7 @@ import { counts } from "./counter";
 
 type VoteType = "upvote" | "downvote";
 
-function voteKey(postId: string, VoteType: VoteType): string {
+export function voteKey(postId: string, VoteType: VoteType): string {
   return `${VoteType}:${postId}`;
 }
 
