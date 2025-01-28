@@ -13,7 +13,7 @@ export const getTopPosts = query({
     const posts = await ctx.db
       .query("post")
       .withIndex("by_creation_time")
-      .filter((q) => q.gt(q.field("_creationTime")))
+      .filter((q) => q.gt(q.field("_creationTime"), oneDayAgo.getTime()))
       .collect();
 
     const postWithScores = await Promise.all(
